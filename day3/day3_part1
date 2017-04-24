@@ -4,7 +4,7 @@ $input = file_get_contents('thirdinput.txt');
 
 $x = 0;
 $y = 0;
-$coord = array(); //already visited coordinates
+$coord = array('0.0' => 1); //already visited coordinates; '0,0' is the starting coordinate
 
 //loop for check all the movements
 for ($i=0; $i < strlen($input); $i++) {
