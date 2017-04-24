@@ -1,0 +1,22 @@
+<?php
+
+$input = str_replace('x', ' ', file('secondinput.txt'));
+
+$sum = 0;
+
+//calculate the wrapping paper for every present
+foreach ($input as $value) {
+	$box = explode(' ', $value);
+	$sum += papersize($box);
+}
+
+echo $sum;
+
+
+//wrapping paper for one box
+function papersize($box) {
+	$l = (int)$box[0];
+	$w = (int)$box[1];
+	$h = (int)$box[2];
+	return $need = 2 *($l*$w + $h*$w + $l*$h) + min($l*$w, $h*$w, $l*$h);
+}
