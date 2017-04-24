@@ -1,0 +1,11 @@
+<?php
+
+// get input to a string
+$input = file_get_contents('firstinput.txt');
+
+// count '(' and ')'
+$up = substr_count($input, '(');
+$down = substr_count($input, ')');
+
+//echo the answer for the first question
+echo $result = $up - $down;
