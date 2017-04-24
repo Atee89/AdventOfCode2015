@@ -1,0 +1,49 @@
+<?php
+
+$input = file('fifthinput.txt');
+
+$nice = 0;
+foreach ($input as $string) {
+	if (is_nice($string)) {
+		$nice++;
+	}
+}
+
+echo $nice;
+
+function is_nice($string) {
+	return vowels($string) && double($string) && forbidden($string);
+}
+
+function vowels($string) {
+	$vowel = array('a','e','i','o','u');
+	$count = 0;
+	for ($i=0; $i < strlen($string); $i++) {
+		if (in_array($string[$i], $vowel)) {
+			$count++;
+		}
+	}
+	if ($count > 2) {
+		return true;
+	}
+return false;
+}
+
+function double($string) {
+	for ($i=0; $i <= strlen($string) - 2 ; $i++) { 
+		if ($string[$i] == $string[$i + 1]) {
+			return true;
+		}
+	}
+return false;
+}
+
+function forbidden($string) {
+	$patterns = array('ab','cd','pq','xy');
+	foreach ($patterns as $value) {
+		if (strpos($string, $value) !== false) {
+			return false;
+		}	
+	}
+return true;
+}
