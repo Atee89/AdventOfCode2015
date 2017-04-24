@@ -1,0 +1,22 @@
+<?php
+
+$input = str_replace('x', ' ', file('secondinput.txt'));
+
+$sum = 0;
+
+//calculate the ribbon length for every present
+foreach ($input as $value) {
+	$box = explode(' ', $value);
+	$sum += ribbonlength($box);
+}
+
+echo $sum;
+
+
+//ribbon for one box
+function ribbonlength($box) {
+	$l = (int)$box[0];
+	$w = (int)$box[1];
+	$h = (int)$box[2];
+	return $need = $l*$w*$h + 2*($l+$w+$h) - 2*max($l, $w, $h);
+}
