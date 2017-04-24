@@ -1,0 +1,14 @@
+<?php
+
+$input = 'bgvyzdsv'; //my personal input
+
+$i = 0; //the number we are looking for
+echo md5hash($input);
+
+function md5hash($input){
+	for ($i=0; ; $i++) { 
+		if (substr(md5($input . $i), 0, 5) === '00000'){
+			return $i;
+		}
+	}
+}
