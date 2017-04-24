@@ -4,9 +4,9 @@ $input = file_get_contents('thirdinput.txt');
 
 $x = 0;
 $y = 0;
-$coord = array();
-//echo coordinate($input[1]);
+$coord = array(); //already visited coordinates
 
+//loop for check all the movements
 for ($i=0; $i < strlen($input); $i++) {
 	$z = $input[$i];
 	if (isset($coord[coordinate($z)]) === false) {
@@ -15,6 +15,7 @@ for ($i=0; $i < strlen($input); $i++) {
 }
 echo count($coord);
 
+//get the next coordinate
 function coordinate($z) {
 	switch ($z) {
 		case '<':
