@@ -1,0 +1,66 @@
+<?php
+
+$input = file_get_contents('sixthinput.txt');
+$commands = explode("\n", $input);
+
+$commandCoordinates = array();
+
+foreach ($commands as $command) {
+	$linestart = array('turn on ', 'turn off ', 'toggle ');
+	
+	foreach ($linestart as $value) {
+		$command = str_replace($value, '', $command);
+	}
+
+	list($from, $to) = explode(' through ', $command);
+	list($fromX, $fromY) = explode(',', $from);
+	list($toX, $toY) = explode(',', $to);
+
+	$commandCoordinates[]= array(
+		array($fromX, $fromY),
+		array($toX, $toY)
+		);
+}
+
+//var_dump($commandCoordinates);
+$totalbrightness = 0;
+
+for ($x=0; $x < 1000; $x++) { 
+	for ($y=0; $y < 1000; $y++) { 
+		$change = 0;
+		foreach ($commands as $key => $command) {
+			if (isaffected($x, $y, $commandCoordinates[$key])) {
+				$change += brigthnessChange($command, $change);
+			}
+		}
+		$totalbrightness += max(0, $change);
+	}
+}
+
+echo $totalbrightness;
+
+function isaffected($x, $y, $coords) {
+	$fromX = $coords[0][0];
+	$fromY = $coords[0][1];
+	$toX = $coords[1][0];
+	$toY = $coords[1][1];
+
+	return $x >= $fromX && $x <= $toX && $y >= $fromY && $y <= $toY;
+}
+
+function brigthnessChange($command, $change) {
+	if (substr($command, 0, 7) === 'turn on') {
+		return 1;
+	}
+	if (substr($command, 0, 6) === 'toggle') {
+		return 2;
+	}
+	else {
+		if ($change == 0) {
+			return 0;
+		}
+		else {
+			return -1;
+		}
+	}
+}
