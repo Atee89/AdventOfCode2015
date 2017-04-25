@@ -1,0 +1,35 @@
+<?php
+
+$input = file('fifthinput.txt');
+
+$nice = 0;
+foreach ($input as $string) {
+	if (is_nice($string)) {
+		$nice++;
+	}
+}
+
+echo $nice;
+
+function is_nice($string) {
+	return repeatPattern($string) && repeatLetter($string);
+}
+
+function repeatPattern($string){
+	for ($i=0; $i < strlen($string) - 3; $i++) { 
+		$pattern = $string[$i] . $string[$i + 1];
+		if (strpos(substr($string, $i + 2), $pattern) !== false) {
+			return true;
+		}
+	}
+return false;
+}
+
+function repeatLetter($string) {
+	for ($i=0; $i < strlen($string) - 3; $i++) { 
+		if ($string[$i] === $string[$i + 2]) {
+			return true;
+		}
+	}
+return false;
+}
